@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../services/auth_service.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/primary_button.dart';
 import '../widgets/logo_widget.dart';
 import 'register_screen.dart';
 import 'main_screen.dart';
@@ -110,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 40),
 
                       // Logo
-                      const LogoWidget(size: 90),
+                      const LogoWidget(size: 90, darkBackground: true),
                       const SizedBox(height: 20),
 
                       // App name
@@ -318,6 +317,59 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class PrimaryButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final bool isLoading;
+  final VoidCallback onPressed;
+
+  const PrimaryButton({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.isLoading,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: isLoading ? null : onPressed,
+        icon: isLoading
+            ? const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.white,
+                ),
+              )
+            : Icon(icon, size: 20),
+        label: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Text(
+            isLoading ? 'Memproses...' : text,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primaryDark,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(14),
+          ),
+          elevation: 0,
+        ),
+      ),
     );
   }
 }

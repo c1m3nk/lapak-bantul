@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import '../theme/app_theme.dart';
 import '../services/auth_service.dart';
 import '../widgets/custom_text_field.dart';
-import '../widgets/primary_button.dart';
+import '../widgets/primary_button.dart' hide LogoWidget;
 import '../widgets/logo_widget.dart';
 import 'login_screen.dart';
 import 'main_screen.dart';
