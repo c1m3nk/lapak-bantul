@@ -14,7 +14,7 @@ class LogoWidget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(size * 0.2),
         child: Image.asset(
-          'assets/image/logo.png',
+          'assets/images/logo.png',
           fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) {
             return Container(
