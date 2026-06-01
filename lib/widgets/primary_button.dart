@@ -1,65 +1,29 @@
 import 'package:flutter/material.dart';
-import '../theme/app_theme.dart';
 
-class PrimaryButton extends StatelessWidget {
-  final String text;
-  final IconData? icon;
-  final VoidCallback onPressed;
-  final bool isLoading;
-  final Color? backgroundColor;
-  final Color? textColor;
+class LogoWidget extends StatelessWidget {
+  final double size;
+  final bool darkBackground;
 
-  const PrimaryButton({
-    super.key,
-    required this.text,
-    this.icon,
-    required this.onPressed,
-    this.isLoading = false,
-    this.backgroundColor,
-    this.textColor,
-  });
+  const LogoWidget({super.key, this.size = 80, this.darkBackground = false});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: 52,
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor ?? AppColors.primaryDark,
-          foregroundColor: textColor ?? Colors.white,
-          disabledBackgroundColor: AppColors.primaryDark.withOpacity(0.5),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 0,
+      width: size,
+      height: size,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(size * 0.2),
+        child: Image.asset(
+          'assets/image/logo.png',
+          fit: BoxFit.contain,
+          errorBuilder: (context, error, stackTrace) {
+            return Container(
+              alignment: Alignment.center,
+              color: Colors.grey.shade200,
+              child: Icon(Icons.image_not_supported, size: size * 0.5),
+            );
+          },
         ),
-        child: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2.5,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    text,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  if (icon != null) ...[
-                    const SizedBox(width: 8),
-                    Icon(icon, size: 20),
-                  ],
-                ],
-              ),
       ),
     );
   }
